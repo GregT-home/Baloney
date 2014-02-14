@@ -1,4 +1,4 @@
-describe("Baloney Card", function() {
+describe("iBaloney Card", function() {
     var ace_clubs, ace_hearts
     var ten_clubs, ten_hearts
 

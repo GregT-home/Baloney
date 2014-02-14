@@ -11,8 +11,12 @@
     <script type="text/javascript" src="../src/Card.js"></script>
     <script type="text/javascript" src="../src/Deck.js"></script>
     <script type="text/javascript" src="../src/Hand.js"></script>
+    <script type="text/javascript" src="../src/Player.js"></script>
+    <script type="text/javascript" src="../src/Pile.js"></script>
+    <script type="text/javascript" src="../src/Game.js"></script>
 
     <!-- code for playing with Views -->
+    <script type="text/javascript" src="../src/iBaloneyView.js"></script>
     <script type="text/javascript" src="../src/ViewPlay.jquery.js"></script>
 
   </head>
@@ -20,7 +24,6 @@
     <header>
       <h1>
         iBaloney
-         <p> No Players playing yet</p>
       </h1>
     </header><nav>
       <ul>
@@ -74,12 +77,12 @@
               It is [currentPlayer] turn.
             </li>
           </ul>
-          <ul class="pond">
-            <li>
-              Pond has [someNumber] cards.
-            </li>
+          <ul class="discard">
             <li>
               Discard has [someNumber] cards.
+            </li>
+            <li>
+              Hand has [someNumber] cards.
             </li>
           </ul>
           <ul class="status">

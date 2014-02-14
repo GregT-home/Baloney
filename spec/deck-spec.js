@@ -1,7 +1,7 @@
 // Test method for examining cards
 Deck.prototype.peek = function(index) { return this._cards[index]; }
 
-describe("Baloney Deck", function() {
+describe("iBaloney Deck", function() {
     var deck;
 
     beforeEach(function() {
@@ -11,16 +11,26 @@ describe("Baloney Deck", function() {
     describe("#new, a deck can be created and contains cards.", function() {
 	it("#new creates a standard 52-card deck", function() {
 	    expect(deck).toBeDefined();
-	    expect(deck.length()).toEqual(52);
+	    expect(deck.numberOfCards()).toEqual(52);
 	});
 
-	it("#giveCard gives a card from the deck", function() {
+	it("#giveCard gives a card from the deck.", function() {
 	    var card = deck.giveCard();
 	    expect(card).toBeDefined();
-
 	});
 
-	it("#peek allows a given card in the deck to be examined", function() {
+	it("#giveCard gives undefined if there are no more cards.", function() {
+	    var card;
+	    for (var i = 0; i < 52; i++) {
+		card = deck.giveCard();
+	    }
+	    expect(card).toBeDefined();
+		
+	    card = deck.giveCard();
+	    expect(card).not.toBeDefined();
+	});
+
+	it("#peek (test-only) allows a given card in the deck to be examined.", function() {
 	    var card = deck.peek(5);
 	    expect(card).toBeDefined();
 	    var card2;
@@ -51,31 +61,12 @@ describe("Baloney Deck", function() {
     });
 
     it("#shuffle changes the order of the deck", function() {
-	var card1 = deck.peek(1);
-	var card29 = deck.peek(29);
-	var card51 = deck.peek(51);
-	for(var i = 0; i < deck.length; i++) {
-	    var card = deck.giveCard();
-	    if (i == 1) card1 = card;
-	    if (i == 29) card29 = card;
-	    if (i == 51) card51 = card;
-	}
-
+	var cards = { 1: deck.peek(1), 29: deck.peek(29), 49: deck.peek(49)};
 	deck.shuffle();
-
-	var newCard1 = deck.peek(1);
-	var newCard29 = deck.peek(29);
-	var newCard51 = deck.peek(51);
-	for(var i = 0; i < deck.length; i++) {
-	    var card = deck.giveCard();
-	    if (i = 1) newCard1 = card;
-	    if (i = 29) newCard29 = card;
-	    if (i = 51) newCard51 = card;
-	}
-
-	expect(card1).not.toEqual(newCard1);
-	expect(card29).not.toEqual(newCard29);
-	expect(card51).not.toEqual(newCard51);
+	aggregateAnd = (cards[1] == deck.peek(1))
+	    && (cards[29] == deck.peek(29))
+	    && (cards[49] == deck.peek(49));
+	expect(aggregateAnd).toBeFalsy();
     });
 });
 

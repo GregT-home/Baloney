@@ -1,4 +1,4 @@
-describe("Baloney Pile", function() {
+describe("iBaloney Pile", function() {
     var pile;
 
     it("#new creates an empty pile", function() {

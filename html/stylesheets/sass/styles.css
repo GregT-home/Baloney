@@ -1,0 +1,152 @@
+body {
+  background-color: linen; }
+
+header {
+  border-width: thin;
+  border-bottom-style: solid;
+  background-color: lightgrey; }
+  @media all {
+    header h1 {
+      text-align: center;
+      font-size: 1.5em;
+      display: inline; } }
+  @media (max-width: 800px) {
+    header h1 {
+      font-size: 1.275em;
+      display: block;
+      margin-bottom: 0; } }
+
+nav {
+  width: 75%;
+  height: 1.25em;
+  margin: 0 auto .25em auto;
+  padding-bottom: 0em;
+  border-width: thin;
+  border-bottom-style: solid;
+  list-style: none;
+  text-align: center; }
+  nav ul {
+    padding-left: 0;
+    margin-bottom: .25em;
+    margin-top: .25em; }
+  nav li {
+    width: 25%;
+    float: none;
+    text-align: center;
+    display: inline-block; }
+
+@media all {
+  html {
+    font-size: 16px; } }
+@media (max-width: 800px) {
+  html {
+    font-size: 13.6px; } }
+body {
+  font-family: "Sorts Mill Goudy", Georgia, serif; }
+
+h1, h2, h3 {
+  font-family: Tahoma, Geneva, sans-serif;
+  color: mediumblue;
+  margin: 0 0.25em 0 0.25em; }
+
+.game-area {
+  margin: 0.25em; }
+
+p.history-area {
+  margin: 0.25em 0 0 0.5em; }
+
+.play-area {
+  background-color: blanchedalmond;
+  clear: both; }
+  .play-area:before, .play-area:after {
+    content: " ";
+    display: table; }
+  .play-area:after {
+    clear: both; }
+
+@media all {
+  .cards-area {
+    background: linear-gradient(#33ad33, #003d00);
+    clear: both; }
+    .cards-area:before, .cards-area:after {
+      content: " ";
+      display: table; }
+    .cards-area:after {
+      clear: both; }
+    .cards-area h2 {
+      margin: 0.15em 0 0.5em 0; }
+    .cards-area h3 {
+      margin: .5em 0 .25em 0; }
+
+  .action-area, .history-area, .hand-area {
+    width: 50%;
+    float: left; }
+
+  .hand-area {
+    width: 100%; } }
+@media (max-width: 450px) {
+  .cards-area h2 {
+    margin: 0.05em 0 0.05em 0; }
+  .cards-area h3 {
+    margin: 0.05em 0 0.05em 0; }
+
+  .action-area, .history-area, .hand-area {
+    width: 100%;
+    float: none; } }
+@media all {
+  .status-area {
+    background-color: blanchedalmond; }
+
+  .hand {
+    margin: 0.3em;
+    padding: 0;
+    display: inline; }
+    .hand img {
+      width: 6em; }
+    .hand li:first-child {
+      text-indent: 0; }
+    .hand li {
+      display: inline-block;
+      text-indent: -4.5em; } }
+@media (max-width: 800px) {
+  .hand {
+    margin: 0.3em; }
+    .hand img {
+      width: 4.5em; }
+    .hand li {
+      text-indent: -3.375em; } }
+@media all {
+  .status li {
+    list-style-type: none;
+    padding: .25em; }
+
+  .action li {
+    list-style-type: none; } }
+@media (max-width: 800px) {
+  .status {
+    padding: 0; }
+
+  .status li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+
+  .action li {
+    list-style-type: none; }
+
+  .action {
+    padding: 0; } }
+footer {
+  background-color: lightgrey;
+  font-size: .7em; }
+  footer ul {
+    padding-left: 0;
+    margin-bottom: .1em;
+    margin-top: .1em;
+    display: block;
+    width: 100%;
+    list-style-type: none; }
+  footer .left {
+    float: left; }
+  footer .right {
+    float: right; }

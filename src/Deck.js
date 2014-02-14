@@ -10,7 +10,7 @@ function Deck() {
     }
 }
 Deck.prototype.cards = function() { return this._cards; }
-Deck.prototype.length = function() { return this._cards.length; }
+Deck.prototype.numberOfCards = function() { return this._cards.length; }
 Deck.prototype.giveCard = function() { return this._cards.shift(); }
 Deck.prototype.shuffle = function(){
     // courtesy of Stackoverflow.com/questions/2450954

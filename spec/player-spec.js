@@ -1,4 +1,4 @@
-describe("Baloney Player", function() {
+describe("iBaloney Player", function() {
     describe ("a Player has a number, name and hand.", function() {
 	var player;
 	var testName = "Mr. One-Oh-Eight";
@@ -19,8 +19,18 @@ describe("Baloney Player", function() {
 
 	it("it holds a hand.", function() {
 	    expect(player.hand()).toBeDefined();
-	    player.hand().receiveCards([new Card("A-H"), new Card("6-C")]);
-    	    expect(player.hand().length()).toBe(2);
+	    player.hand().receive([new Card("A-H"), new Card("6-C")]);
+    	    expect(player.hand().numberOfCards()).toBe(2);
 	});
+	
+	it("it can be sent a message.", function() {
+	    var testMsg = "This is a test";
+	    player.messages(true);
+	    player.tell(testMsg);
+	    expect(player.messages(false)).toEqual([testMsg]);
+	    expect(player.messages(true)).toEqual([testMsg]);
+	    expect(player.messages(true)).toEqual([]);
+	});
+
     });
 }); // end Baloney Player tests

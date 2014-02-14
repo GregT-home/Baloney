@@ -1,7 +1,7 @@
 // Test method for examining cards
 Hand.prototype.peek = function(index) { return this._cards[index]; }
 
-describe("Baloney Hand", function() {
+describe("iBaloney Hand", function() {
     var hand;
 
     it("#new creates an empty hand", function() {
@@ -13,15 +13,20 @@ describe("Baloney Hand", function() {
 	var hand;
 	hand = new Hand();
 
-	it("#receiveCards can receive an array of cards", function() {
-	    hand.receiveCards([new Card("5-H"),
-			       new Card("3-D"),
-			       new Card("4-S")]);
-	    expect(hand.length()).toEqual(3);
+	it("#receive can receive an array of cards", function() {
+	    hand.receive([new Card("5-H"),
+			  new Card("3-D"),
+			  new Card("4-S")]);
+	    expect(hand.numberOfCards()).toEqual(3);
+	});
+
+	it("#receive can receive a single card", function() {
+	    hand.receive(new Card("5-C"));
+	    expect(hand.numberOfCards()).toEqual(4);
 	});
 
 	it("#length returns the size of a hand", function() {
-	    expect(hand.length()).toEqual(3);
+	    expect(hand.numberOfCards()).toEqual(4);
 	});
 
 	describe("Specified ranks can be take from a hand.", function() {
@@ -34,14 +39,14 @@ describe("Baloney Hand", function() {
 	});
     });
 
-	
+    
 
 
 
     it("#sort sorts cards by value", function() {
-	var card = new Card("5-H"); hand.receiveCards([card]);
-	var card = new Card("3-D"); hand.receiveCards([card]);
-	var card = new Card("4-S"); hand.receiveCards([card]);
+	var card = new Card("5-H"); hand.receive([card]);
+	var card = new Card("3-D"); hand.receive([card]);
+	var card = new Card("4-S"); hand.receive([card]);
 
 	hand.sort();
 
@@ -59,4 +64,3 @@ describe("Baloney Hand", function() {
     });
 
 }); // end Hand tests
-

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iBaloney Mockup</title>
+    <meta content="initial-scale=1.0" name="viewport" />
+    <meta content="text/html;" http-equiv="Content-Type" />
+    <link href="stylesheets/styles.css" rel="stylesheet" />
+    <script type="text/javascript" src="../lib/jquery-2.1.0.js"></script>
+
+    <!-- Game model source... -->
+    <script type="text/javascript" src="../src/Card.js"></script>
+    <script type="text/javascript" src="../src/Deck.js"></script>
+    <script type="text/javascript" src="../src/Hand.js"></script>
+
+    <!-- code for playing with Views -->
+    <script type="text/javascript" src="../src/ViewPlay.jquery.js"></script>
+
+  </head>
+  <body>
+    <header>
+      <h1>
+        iBaloney
+         <p> No Players playing yet</p>
+      </h1>
+    </header><nav>
+      <ul>
+        <li>
+          <a href="/login">Login</a>
+        </li>
+        <li>
+          <a href="http://www.pagat.com/beating/cheat.html">Help</a>
+        </li>
+      </ul>
+    </nav><section class="game-area">
+      <section class="play-area">
+        <section class="history-area">
+          <h2 class="history-title">
+            Last Round
+          </h2>
+          <p class="history">
+            [&quot;Waiting for the rest of the players.&quot;]
+          </p>
+
+        </section>
+        <section class="action-area">
+          <h2>
+            Actions you can take
+          </h2>
+          <form action="process_action.php" method="post">
+            <ul class="action">
+              <li>
+                Hey
+              </li>
+            </ul>
+          </form>
+        </section><section class="cards-area">
+          <section class="hand-area">
+            <h2>
+              Your Cards:
+            </h2>
+            <ul class="hand">
+
+          </section>
+        </section><section class="books-area">
+          <h3>
+            Your Books
+          </h3>
+        </section><section class="status-area">
+          <h2>
+            Game Status
+          </h2>
+          <ul class="turn">
+            <li>
+              It is [currentPlayer] turn.
+            </li>
+          </ul>
+          <ul class="pond">
+            <li>
+              Pond has [someNumber] cards.
+            </li>
+            <li>
+              Discard has [someNumber] cards.
+            </li>
+          </ul>
+          <ul class="status">
+            <li>
+              Greg has 7 cards and has made 0 books () [You].
+            </li>
+          </ul>
+        </section>
+      </section>
+    </section>
+    <footer>
+      <ul>
+        <li class="right">
+          &copy; 2014, RoleModel Software, All Rights Reserved
+        </li>
+        <li class="left">
+          Send me <a href="mailto:gltarsa@gmail.com?subject=Comments%20for%20iBaloney%20page">Feedback</a>
+        </li>
+      </ul>
+    </footer>
+  </body>
+</html>

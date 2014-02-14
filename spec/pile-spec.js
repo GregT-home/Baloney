@@ -1,11 +1,8 @@
 describe("Baloney Pile", function() {
     var pile;
 
-    beforeEach(function() {
-	pile = new Pile;
-    });
-
     it("#new creates an empty pile", function() {
+	pile = new Pile;
 	expect(pile).toBeDefined();
     });
 
@@ -17,20 +14,21 @@ describe("Baloney Pile", function() {
 	});
 
 	it("#lengthOfLastAddition returns the number of Cards most recently added to the pile.", function() {
-	    pile.lengthOfLastAddition().isEqual(3);
+	    expect(pile).toBeDefined();
+	    expect(pile.lengthOfLastAddition()).toEqual(3);
 	});
 
-	it("#isLastAdditionAllEqualToRank returns false if the most recently added cards were not of the target rank.", function() {
-	    pile.LastAdditionAllEqualToRank("5").toBeFalsy;
+	it("#doCardsMatchRank returns false if the most recently added cards were not of the target rank.", function() {
+	    expect(pile.doCardsMatchRank("Q")).toBeFalsy();
 	});
 
-	it("#isLastAdditionAllEqualToRank returns true if the most recently added cards were not of the target rank.", function() {
+	it("#doCardsMatchRank returns true if the most recently added cards were not of the target rank.", function() {
 	    pile = new Pile;
 	    pile.receiveCards([new Card("5-H"),
 			       new Card("5-D"),
 			       new Card("5-S")]);
 
-	    pile.LastAdditionAllEqualToRank("5").toBeTruthy;
+	    expect(pile.doCardsMatchRank("5")).toBeTruthy();
 	});
 	
 	it("#length gives the size of a pile", function() {
@@ -39,13 +37,15 @@ describe("Baloney Pile", function() {
 
 	it("#giveAllCards gives all cards in the pile", function() {
 	    var cards = pile.giveAllCards();
-	    expect(cards.length()).toEqual(3);
+	    expect(cards.length).toEqual(3);
+	    expect(pile.length()).toEqual(0);
+	    pile.receiveCards(cards);
 	});
     });
 
     it("#toString shows a string representing the pile", function() {
 	pileString = pile.toString();
-	expect(pile.toString()).toEqual("[tbd]");
+	expect(pile.toString()).toEqual("[5-H 5-D 5-S]");
     });
 
 }); // end Pile tests

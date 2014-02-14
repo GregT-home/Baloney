@@ -1,11 +1,8 @@
-function Card(rank, suit) {
- this._rank = rank
- this._suit = suit
+function Player(number, name, hand) {
+    this._number = number;
+    this._name = name;
+    this._hand = hand;
 }
-Card.prototype.value = function(song) {
-  return 0
-};
-
-Card.prototype.toString = function() {
-    return this._rank + "-" + this._suit
-}
+Player.prototype.number = function() { return this._number; }
+Player.prototype.name = function() { return this._name; }
+Player.prototype.hand = function() { return this._hand; }

@@ -29,6 +29,15 @@ describe("Baloney Card", function() {
 	    expect(ten_clubs.valueOf()).toBeLessThan(ace_hearts.valueOf());
 	});
 
+	it("#select marks a card as selected.", function() {
+	    expect(ten_clubs.isSelected()).toBeFalsy();
+	    expect(ten_clubs.select().isSelected()).toBeTruthy();
+	});
+
+	it("#select marks a card as selected.", function() {
+	    expect(ten_clubs.unSelect().isSelected()).toBeFalsy();
+	});
+
 	it("#toString prints a string description of the card.", function() {
 	    expect(ten_clubs.toString()).toEqual("10-C");
 	});

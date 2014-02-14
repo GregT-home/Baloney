@@ -1,0 +1,15 @@
+
+.sass-cache
+public/stylesheets/sass/*.css
+public/stylesheets/*.css
+specs/f.rb
+
+# Emacs artifacts
+\#*
+.#*
+*~
+# personal artifacts
+bogus*
+*.out
+[Mm]akefile*
+tmp*

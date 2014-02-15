@@ -8,4 +8,6 @@ window.onload = function() {
     view.displayHistory();
     view.displayInfo();
     view.displayPlayerStatus();
+    console.log("windows.onload calling ready and view.setClickHand");
+    $(document).ready(view.setClickHand);
 };

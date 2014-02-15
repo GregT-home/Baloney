@@ -36,6 +36,26 @@ iBaloneyView.prototype.displayHand = function() {
     }
     this.update(".hand", "li", cardList);
 }
+
+iBaloneyView.prototype.listClickedCards = function(eventObject) {
+    console.log("click callback called with %s, %s", eventObject);
+}
+
+iBaloneyView.prototype.setClickHand = function() {
+    // in a handler "this" is the selector, not iBaloneyView
+    console.log("We have entered setClickHand");
+    var cardsInDisplay = $(".hand li");
+    console.log(cardsInDisplay);
+    //    cardsInDisplay.on('click', this.listClickedCards);
+    console.log("We register a click handler...");
+    cardsInDisplay.on("click","", { text: "some data to see", playerNumber: 4011}, function(eventObject) {
+	console.log("on-click callback called with eventObject = %s", eventObject);
+	console.log(eventObject);
+	console.log("data = %s, %i", eventObject.data.text, eventObject.data.playerNumber);
+    });
+    console.log("...and we are now leaving setClickHand");
+}
+
 iBaloneyView.prototype.displayHistory = function() {
     this.update(".history", "p", this._game.currentPlayer().messages());
 }

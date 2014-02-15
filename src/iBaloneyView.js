@@ -1,10 +1,12 @@
+$DEBUG = false
 function iBaloneyView(numPlayers) {
     var tmpNames = ["Mephibosheth", "David", "Joab", "Saul", "Jonathan",
 		    "Nathan", "Abishai", "Asahel", "Ziba", "Abner" ];
     if (numPlayers > 10) {
-	console.log("Must have fewer than 10 players.\n"
-	      + numPlayers + " requested.\n"
-	      + "Reducing the number to 10.");
+	if ($DEBUG)
+	    console.log("Must have fewer than 10 players.\n"
+			+ numPlayers + " requested.\n"
+			+ "Reducing the number to 10.");
 	numPlayers = 10;
     }
 
@@ -23,6 +25,12 @@ iBaloneyView.prototype.update = function(selector, type, text) {
 	lines = text;
     section = $(selector);
     section.empty();
+
+    if ($DEBUG) {
+	console.log("update is replacing '%s(%s)' body with:", selector, type);
+	for (i in lines) console.log(lines[i]);
+    }
+
     for (var i = 0; i < lines.length; i++) {
 	section.append("<"+type+">" + lines[i] + "</"+type+">");
     }
@@ -30,11 +38,14 @@ iBaloneyView.prototype.update = function(selector, type, text) {
 iBaloneyView.prototype.displayHand = function() {
     var game = this._game;
     var cardList = []
+
     for (var i = 0; i < game.currentPlayer().hand().numberOfCards(); i++) {
 	var card = game.currentPlayer().hand().cards()[i];
-	cardList.push('<img src="images/cards/' + card.toFileBaseName() + '.png">');
+	var attr = 'data-rank="' + card.rank() + '" data-suit= "' + card.suit() + '"';
+	cardCode = '<img ' + attr + ' src="images/cards/' + card.toFileBaseName() + '.png">';
+	cardList.push(cardCode);
     }
-    this.update(".hand", "li", cardList);
+    this.update(".hand li", "li", cardList);
 }
 
 iBaloneyView.prototype.listClickedCards = function(eventObject) {
@@ -42,18 +53,23 @@ iBaloneyView.prototype.listClickedCards = function(eventObject) {
 }
 
 iBaloneyView.prototype.setClickHand = function() {
-    // in a handler "this" is the selector, not iBaloneyView
-    console.log("We have entered setClickHand");
+    // unless .bind() is used to pass in a different handler, then the 'this'
+    // context in a handler is the selector/document, not iBaloneyView.
+    if ($DEBUG) console.log("We have entered setClickHand.  this is: ", this);
     var cardsInDisplay = $(".hand li");
-    console.log(cardsInDisplay);
+    if ($DEBUG) console.log(cardsInDisplay);
     //    cardsInDisplay.on('click', this.listClickedCards);
-    console.log("We register a click handler...");
+    if ($DEBUG) console.log("We register a click handler...");
     cardsInDisplay.on("click","", { text: "some data to see", playerNumber: 4011}, function(eventObject) {
+	if ($DEBUG) {
 	console.log("on-click callback called with eventObject = %s", eventObject);
 	console.log(eventObject);
-	console.log("data = %s, %i", eventObject.data.text, eventObject.data.playerNumber);
-    });
-    console.log("...and we are now leaving setClickHand");
+	console.log("bind makes 'this' the the iBaloneyView context passed in " +
+		    "from the ready() call: ", this);
+	console.log("data = %s, %i, this:", eventObject.data.text, eventObject.data.playerNumber, this);
+	}
+    }.bind(this));
+    if ($DEBUG) console.log("...and we are now leaving setClickHand");
 }
 
 iBaloneyView.prototype.displayHistory = function() {

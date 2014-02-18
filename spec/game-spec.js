@@ -1,3 +1,23 @@
+describe("iBaloney Game JSON tests", function() {
+    it("#fromJSON should create a game, just like the original, from a JSON string.", function() {
+	game = new Game();
+	game.addPlayer(new Player(1, "One"));
+	game.addPlayer(new Player(2, "Two"));
+
+	var gameJSON = JSON.stringify(game);
+	var reconstituted = Game.fromJSON(gameJSON);
+console.log("JSON for game:", gameJSON);
+for (thing in game) console.log("thing = %s, typeof = %s", thing, typeof game[thing]);
+	console.log("game.player(0) = ", game.player(0));
+	console.log("game.player(1) = ", game.player(1));
+	expect(reconstituted.started()).toEqual(game.started());
+	expect(reconstituted.players(currentPlayer)).toBe(game.players(currentPlayer));
+	expect(reconstituted.numberOfPlayers()).toEqual(game.numberOfPlayers());
+	expect(reconstituted.__proto__).toEqual(game.__proto__);
+    });
+
+});
+
 describe("iBaloney Game", function() {
     var game, players;
 

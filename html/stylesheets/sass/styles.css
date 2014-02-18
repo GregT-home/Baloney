@@ -1,3 +1,6 @@
+.selected {
+  box-shadow: 0 0 2px 5px LawnGreen; }
+
 body {
   background-color: linen; }
 
@@ -107,7 +110,19 @@ p.history-area {
       text-indent: 0; }
     .hand li {
       display: inline-block;
-      text-indent: -4.5em; } }
+      text-indent: -4.5em; }
+
+  .maybe-discards {
+    list-style-type: none;
+    display: inline;
+    padding: 0; }
+    .maybe-discards img {
+      width: 3em; }
+    .maybe-discards li:first-child {
+      text-indent: 0; }
+    .maybe-discards li {
+      display: inline-block;
+      text-indent: -1.5em; } }
 @media (max-width: 800px) {
   .hand {
     margin: 0.3em; }
@@ -115,6 +130,13 @@ p.history-area {
       width: 4.5em; }
     .hand li {
       text-indent: -3.375em; } }
+@media (max-width: 450px) {
+  .maybe-discards {
+    margin: 0.15em; }
+    .maybe-discards img {
+      width: 2.25em; }
+    .maybe-discards li {
+      text-indent: -1.125em; } }
 @media all {
   .status li {
     list-style-type: none;

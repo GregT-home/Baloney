@@ -4,7 +4,7 @@ describe("iBaloney Player", function() {
 	var testName = "Mr. One-Oh-Eight";
 
 	it("#new: a player can be created", function() {
-	    player = new Player(108, testName, new Hand());
+	    player = new Player(108, testName);
 	});
 
 	it("it holds a number.", function() {
@@ -21,6 +21,12 @@ describe("iBaloney Player", function() {
 	    expect(player.hand()).toBeDefined();
 	    player.hand().receive([new Card("A-H"), new Card("6-C")]);
     	    expect(player.hand().numberOfCards()).toBe(2);
+	});
+
+	it("it holds a possible discard pile.", function() {
+	    expect(player.maybeDiscard()).toBeDefined();
+	    player.maybeDiscard().receive([new Card("A-H"), new Card("6-C")]);
+    	    expect(player.maybeDiscard().numberOfCards()).toBe(2);
 	});
 	
 	it("it can be sent a message.", function() {

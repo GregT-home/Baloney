@@ -43,11 +43,11 @@ describe("iBaloney Deck", function() {
 	});
 
 	it("#it is a standard 52-card deck", function() {
-	    expect(deck.cards()[0]).toBeDefined();
+	    expect(deck.cards(0)).toBeDefined();
 
 	    var clubCount = heartCount = spadeCount = diamondCount = 0;
 	    for (var i = 0; i < 52; i++) {
-		var suit = deck.cards()[i].suit()
+		var suit = deck.cards(i).suit()
 		if (suit == "C") clubCount++;
 		if (suit == "H") heartCount++;
 		if (suit == "S") spadeCount++;

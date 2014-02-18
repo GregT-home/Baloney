@@ -20,6 +20,16 @@ $hand-card-width: 6em;
 $hand-overlap-factor : .75;
 $hand-margin-factor : .05;
 
+$discard-card-width: $hand-card-width * .50;
+$discard-overlap-factor : .50;
+$discard-margin-factor : .05;
+
+.selected {
+  box-shadow: 0 0 2px 5px LawnGreen;
+// opacity seems to mess with the Z index
+//  opacity: 0.7;  
+}
+
 @mixin clearfix() {
     &:before, &:after {
 	content: " ";
@@ -72,6 +82,7 @@ p.history-area {
     }
     .hand-area {
 	width: 100%;
+//	width: 68%;
     }
 }
 
@@ -90,7 +101,7 @@ p.history-area {
     .status-area { background-color: $non-cards-area-color; }
 
     // hand stacks horizontally w/ rank visible.
-    .hand {
+    .hand  {
 	margin: $hand-card-width * $hand-margin-factor;
 	padding: 0;
 	display: inline;
@@ -103,6 +114,19 @@ p.history-area {
 	}
     }
 
+    .maybe-discards {
+	list-style-type: none;
+	img { width: $discard-card-width; }
+	display: inline;
+	padding: 0;
+
+	li:first-child { text-indent: 0 }
+	li {
+	    display: inline-block;
+	    text-indent: -$discard-card-width * $discard-overlap-factor;
+	}
+    }
+
 }
 @media (max-width: $tablet_size) {
     // reduce margin
@@ -110,6 +134,13 @@ p.history-area {
 	margin: $hand-card-width * $hand-margin-factor;
 	img { width: $hand-card-width * $card-shrink-ratio; }
 	li { text-indent: -$hand-card-width * $hand-overlap-factor * $card-shrink-ratio; }
+    }
+}
+@media (max-width: $phone_size) {
+    .maybe-discards {
+	margin: $discard-card-width * $discard-margin-factor; 
+	img { width: $discard-card-width * $card-shrink-ratio; }
+	li { text-indent: -$discard-card-width * $discard-overlap-factor * $card-shrink-ratio; }
     }
 }
     

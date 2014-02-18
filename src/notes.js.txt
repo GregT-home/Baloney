@@ -1,0 +1,78 @@
+// Notes 2/17/14
+
+function = notes() {
+    var view = new iBaloneyView(1);
+
+    var toJSON = view.stringify()
+    var fromJSAON = toJSON.parse(toJSON);
+    //or
+    var fromJSON = JSON.parse(JSON.stringify(view));
+    // returns "Object", not View
+
+    fromJSON.game.__proto__ = iBaloneyView.prototype;
+    // now fromJSON is the same object
+
+window.[fromJSON.className].prototype
+// or
+
+fromJSON.
+
+//
+//obj.constructor.name is the name of the object
+
+	
+
+}
+
+describe("JSON tests", function() {
+    it("should create a card just like the first by round-tripping JSON.", function() {
+	tenSpaces = new Card ("10-S");
+	var aceJSON = JSON.stringify(tenSpades);
+	var fromJSON = new Card(tenJSON);
+	expect(fromJSON.rank).toEqual(aceJSON.rank);
+	expect(fromJSON.suit).toEqual(aceJSON.suit);
+    });
+
+});
+
+
+window.onload = function() {
+    var numberOfPlayers;
+    while ((numberOfPlayers = ~~(11 * Math.random())) < 2);
+    var view = new iBaloneyView(numberOfPlayers);
+    view.setup();
+};
+
+
+Object.fromJSON = (obj) ->
+obj.__proto__ = 
+
+/*
+ Note about generalized JSON->object conversion.
+
+ Objects can be nested and can be in arrays.  Any conversion routine
+ needs to watcn for that.
+
+ In general:
+
+    if obj has a classname convert it to that class.
+
+    iterate through the keys
+
+    if the key is an array, then iterate the array
+       if the element is an array, call Object.fromJSON(element) [recursive]
+    if the key is an object, then call Object.fromJSON(element) [recursive]
+    return;
+*/
+
+/*
+  ReSTful interface
+
+ http://mygame.com/api/v[1,2,3,4]/Restful Call/data
+
+ ex: mygame.com/api/v2/getusername/12345
+ 
+ typically, you would send game data in its entirety and not as a means of interactive communcation.  I.e., think of it as read-only.
+
+
+*/

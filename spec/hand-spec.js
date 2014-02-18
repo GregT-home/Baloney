@@ -39,9 +39,50 @@ describe("iBaloney Hand", function() {
 	});
     });
 
-    
+    describe("Cards in a hand can be selected & unselected.", function() {
+	var hand;
 
+	hand = new Hand();
+	hand.receive([new Card("5-H"),
+		      new Card("3-D"),
+		      new Card("4-S")]);
 
+	it("#isSelected shows new cards are un-selected.", function () {
+	    card = hand.cards(0); // card is 4-S
+	    expect(card.isSelected()).toBeFalsy();
+	});
+
+	it("#selectCardFromRankSuit selects a matching card.", function () {
+	    card = hand.selectCardFromRankSuit("4", "S");
+	    expect(card.isSelected()).toBeTruthy();
+	});
+
+	it("#isCardSelectedFromRankSuit shows match status.", function () {
+	    expect(hand.isCardSelectedFromRankSuit("4", "S")).toBeTruthy();
+	});
+
+	it("#unSelectCardFromRankSuit de-selects a matching card.", function () {
+	    card = hand.unSelectCardFromRankSuit("4", "S");
+	    expect(card.isSelected()).toBeFalsy();
+	    expect(hand.isCardSelectedFromRankSuit("4", "S")).toBeFalsy();
+	});
+
+	it("#giveSelectedCards removes seleted cards from hand and returns them.", function () {
+	    for (var i = 0; i < hand.numberOfCards(); i++) {
+		hand.cards(i).unSelect();
+	    }
+	    // cards are:  [3-D 4-S 5-H] 
+	    hand.cards(0).select();
+	    hand.cards(2).select();
+
+	    var discard = new Hand();
+	    discard.receive(hand.giveSelected());
+	    expect(hand.cards(0).rank()).toBe("4");
+	    expect(hand.cards(0).suit()).toBe("S");
+	    expect(discard.cards(0).rank()).toBe("3");
+	    expect(discard.cards(1).rank()).toBe("5");
+	});
+    });
 
     it("#sort sorts cards by value", function() {
 	var card = new Card("5-H"); hand.receive([card]);

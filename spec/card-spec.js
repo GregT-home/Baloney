@@ -1,3 +1,16 @@
+describe("JSON tests", function() {
+    it("#fromJSON should create a game, just like the original, from a JSON string.", function() {
+
+	tenClubs = new Card ("10-C");
+	var tenJSON = JSON.stringify(tenClubs);
+	var reconstituted = Card.fromJSON(tenJSON);
+
+	expect(reconstituted.rank()).toEqual(tenClubs.rank());
+	expect(reconstituted.suit()).toEqual(tenClubs.suit());
+	expect(reconstituted.__proto__).toEqual(tenClubs.__proto__);
+    });
+});
+
 describe("iBaloney Card", function() {
     var ace_clubs, ace_hearts
     var ten_clubs, ten_hearts
@@ -38,13 +51,12 @@ describe("iBaloney Card", function() {
 	    expect(ten_clubs.unSelect().isSelected()).toBeFalsy();
 	});
 
-	it("#toString prints a string description of the card.", function() {
+	it("#toString prints a string description of an unselected card.", function() {
 	    expect(ten_clubs.toString()).toEqual("10-C");
 	});
 
-	it("#toString prints a string description of the card.", function() {
-	    
-	    expect(ten_clubs.toString()).toEqual("10-C");
+	it("#toString prints a string description of a selected card.", function() {
+	    expect(ten_clubs.select().toString()).toEqual("10=C");
 	});
     });
 }); // end Baloney Card tests

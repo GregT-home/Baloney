@@ -9,7 +9,7 @@ function Deck() {
 	}
     }
 }
-Deck.prototype.cards = function() { return this._cards; }
+Deck.prototype.cards = function(i) { return this._cards[i]; }
 Deck.prototype.numberOfCards = function() { return this._cards.length; }
 Deck.prototype.giveCard = function() { return this._cards.shift(); }
 Deck.prototype.shuffle = function(){

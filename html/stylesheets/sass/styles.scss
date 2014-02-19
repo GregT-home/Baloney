@@ -41,8 +41,15 @@ $discard-margin-factor : .05;
 @import '_header+nav';
 
 // compression: shrink base font by 2 px
-@media all { html { font-size: $base-font-size; } }
-@media (max-width: $tablet_size) { html { font-size: $base-font-size * $compression-ratio; } }
+@media all {
+    html { font-size: $base-font-size; }
+}
+@media (max-width: $tablet_size) {
+    html { font-size: $base-font-size * $compression-ratio; }
+}
+@media (max-width: $phone_size) {
+    html { font-size: $base-font-size * $compression-ratio * $compression-ratio; }
+}
 
 body { font-family: "Sorts Mill Goudy", Georgia, serif; }
 h1, h2, h3 {
@@ -126,7 +133,6 @@ p.history-area {
 	    text-indent: -$discard-card-width * $discard-overlap-factor;
 	}
     }
-
 }
 @media (max-width: $tablet_size) {
     // reduce margin
@@ -141,6 +147,10 @@ p.history-area {
 	margin: $discard-card-width * $discard-margin-factor; 
 	img { width: $discard-card-width * $card-shrink-ratio; }
 	li { text-indent: -$discard-card-width * $discard-overlap-factor * $card-shrink-ratio; }
+    }
+    
+    .action {
+	img { width: $discard-card-width * $card-shrink-ratio; }
     }
 }
     
@@ -165,5 +175,4 @@ p.history-area {
     }
     .action { padding: 0 }
 }
-
 @import '_footer';

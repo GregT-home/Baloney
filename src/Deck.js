@@ -14,7 +14,8 @@ Deck.prototype.numberOfCards = function() { return this._cards.length; }
 Deck.prototype.giveCard = function() { return this._cards.shift(); }
 Deck.prototype.shuffle = function(){
     // courtesy of Stackoverflow.com/questions/2450954
-    var currentIndex = this._cards.length, temporaryValue, randomIndex;
+    var currentIndex, temporaryValue, randomIndex;
+    currentIndex = this._cards.length
 
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {

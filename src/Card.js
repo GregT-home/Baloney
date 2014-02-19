@@ -22,5 +22,9 @@ Card.prototype.valueOf = function() { return Card.RANKS.indexOf(this._rank); }
 Card.prototype.select = function() { this._isSelected = true; return this;}
 Card.prototype.unSelect = function() { this._isSelected = false; return this;}
 
-Card.prototype.toString = function() { return this._rank + (this._isSelected ? "=" : "-") + this._suit; }
-Card.prototype.toFileBaseName = function() { return this._suit + this._rank; }
+Card.prototype.toString = function() {
+    return this._rank + (this._isSelected ? "=" : "-") + this._suit;
+}
+Card.prototype.toFileBaseName = function() {
+    return this._suit.toLowerCase() + this._rank.toLowerCase();
+}

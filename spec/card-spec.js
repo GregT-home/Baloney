@@ -12,51 +12,55 @@ describe("JSON tests", function() {
 });
 
 describe("iBaloney Card", function() {
-    var ace_clubs, ace_hearts
-    var ten_clubs, ten_hearts
+    var aceClubs, aceHearts
+    var tenClubs, tenHearts
 
     beforeEach(function() {
-	ace_clubs = new Card("A-C")
-	ace_hearts = new Card("A-H")
-	ten_clubs = new Card("10-C")
-	ten_hearts = new Card("10-H")
+	aceClubs = new Card("A-C")
+	aceHearts = new Card("A-H")
+	tenClubs = new Card("10-C")
+	tenHearts = new Card("10-H")
     });
 
     describe ("#new: cards can be created from a 'R-S' string.", function() {
 	it("They have rank and suit", function() {
-	    expect(ace_clubs).toBeDefined();
-	    expect(ace_clubs.rank()).toEqual(ace_hearts.rank());
-	    expect(ace_clubs.suit()).not.toEqual(ace_hearts.suit());
+	    expect(aceClubs).toBeDefined();
+	    expect(aceClubs.rank()).toEqual(aceHearts.rank());
+	    expect(aceClubs.suit()).not.toEqual(aceHearts.suit());
 	});
 
 	it("They have values based on rank only.", function() {
-	    expect(ace_hearts.valueOf()).toEqual(ace_clubs.valueOf());
-	    expect(ten_hearts.valueOf()).not.toEqual(ace_clubs.valueOf());
+	    expect(aceHearts.valueOf()).toEqual(aceClubs.valueOf());
+	    expect(tenHearts.valueOf()).not.toEqual(aceClubs.valueOf());
 	});
 
 	it("Higher ranks are greater than lower ranks.", function() {
-	    expect(ace_hearts.valueOf()).toBeGreaterThan(ten_hearts.valueOf());
+	    expect(aceHearts.valueOf()).toBeGreaterThan(tenHearts.valueOf());
 	});
 
 	it("Lower ranks are less than higher ranks.", function() {
-	    expect(ten_clubs.valueOf()).toBeLessThan(ace_hearts.valueOf());
+	    expect(tenClubs.valueOf()).toBeLessThan(aceHearts.valueOf());
 	});
 
 	it("#select marks a card as selected.", function() {
-	    expect(ten_clubs.isSelected()).toBeFalsy();
-	    expect(ten_clubs.select().isSelected()).toBeTruthy();
+	    expect(tenClubs.isSelected()).toBeFalsy();
+	    expect(tenClubs.select().isSelected()).toBeTruthy();
 	});
 
 	it("#select marks a card as selected.", function() {
-	    expect(ten_clubs.unSelect().isSelected()).toBeFalsy();
+	    expect(tenClubs.unSelect().isSelected()).toBeFalsy();
 	});
 
 	it("#toString prints a string description of an unselected card.", function() {
-	    expect(ten_clubs.toString()).toEqual("10-C");
+	    expect(tenClubs.toString()).toEqual("10-C");
 	});
 
 	it("#toString prints a string description of a selected card.", function() {
-	    expect(ten_clubs.select().toString()).toEqual("10=C");
+	    expect(tenClubs.select().toString()).toEqual("10=C");
+	});
+
+	it("#toFileBaseName returns a name with lowercase suit and rank.", function() {
+	    expect(aceHearts.toFileBaseName()).toEqual("ha");
 	});
     });
 }); // end Baloney Card tests

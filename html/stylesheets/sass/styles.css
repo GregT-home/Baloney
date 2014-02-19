@@ -44,6 +44,9 @@ nav {
 @media (max-width: 800px) {
   html {
     font-size: 13.6px; } }
+@media (max-width: 450px) {
+  html {
+    font-size: 11.56px; } }
 body {
   font-family: "Sorts Mill Goudy", Georgia, serif; }
 
@@ -136,7 +139,10 @@ p.history-area {
     .maybe-discards img {
       width: 2.25em; }
     .maybe-discards li {
-      text-indent: -1.125em; } }
+      text-indent: -1.125em; }
+
+  .action img {
+    width: 2.25em; } }
 @media all {
   .status li {
     list-style-type: none;

@@ -30,7 +30,7 @@ describe("iBaloney Hand", function() {
 	});
 
 	describe("Specified ranks can be take from a hand.", function() {
-	    it("#giveMatchingRank returns a single matching rank, or undefined.", function () {
+	    it("#giveMatchingRank returns a single matching rank, removing it from the hand, or returns undefined.", function () {
 		var card = hand.giveMatchingRank("3");
 		expect(card.rank()).toBe("3");
 		card = hand.giveMatchingRank("3");
@@ -50,21 +50,6 @@ describe("iBaloney Hand", function() {
 	it("#isSelected shows new cards are un-selected.", function () {
 	    card = hand.cards(0); // card is 4-S
 	    expect(card.isSelected()).toBeFalsy();
-	});
-
-	it("#selectCardFromRankSuit selects a matching card.", function () {
-	    card = hand.selectCardFromRankSuit("4", "S");
-	    expect(card.isSelected()).toBeTruthy();
-	});
-
-	it("#isCardSelectedFromRankSuit shows match status.", function () {
-	    expect(hand.isCardSelectedFromRankSuit("4", "S")).toBeTruthy();
-	});
-
-	it("#unSelectCardFromRankSuit de-selects a matching card.", function () {
-	    card = hand.unSelectCardFromRankSuit("4", "S");
-	    expect(card.isSelected()).toBeFalsy();
-	    expect(hand.isCardSelectedFromRankSuit("4", "S")).toBeFalsy();
 	});
 
 	it("#giveSelectedCards removes seleted cards from hand and returns them.", function () {

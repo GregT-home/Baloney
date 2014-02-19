@@ -5,6 +5,7 @@ function Game() {
 	this._discard;
  }
 Game.prototype.discard = function()    { return this._discard; }
+Game.prototype.started = function() { return this._started; }
 //Game.prototype.numberOfDiscards = function() { return this._discard.length; }
 Game.prototype.players = function(i)          { return this._players[i]; }
 Game.prototype.numberOfPlayers = function()  { return this._players.length; }
@@ -34,33 +35,33 @@ if (p == 6) this._currentPlayer._maybeDiscard.receive(deck.giveCard());
 
     console.log("cand disc hand: ", this._currentPlayer._maybeDiscard.toString());
 
-    this.started = true;
+    this._started = true;
 }
-Game.prototype.toJSON = function() {
+// Move to Object+JSON.js
+Object.prototype.toJSON = function() {
     this.className = this.constructor.name;
-    console.log(".toJSON calling .toObject.  Typeof this is: ", typeof this, this);
-    Game.toObject(this);
     return this;
 }
+
 Game.fromJSON = function(string){
     var obj = JSON.parse(string);
     obj.__proto__ = window[obj.className].prototype;
-
+    Game.toObject(obj);
     return obj;
 }
-Game.toObject = function(genericObject){
 
-    console.log("toObject(", typeof genericObject, ")", genericObject);
+Game.toObject = function(genericObject){
+    var prefix = "toObject("
+	+ Object.prototype.toString.call(genericObject)
+	+ "/name "+genericObject.className+"): ";
+
     for (thing in genericObject) {
 	obj = genericObject[thing];
-	console.log("typeof obj = ", typeof obj);
-	if (typeof obj === "Array") {
-	    console.log("calling toObject recursively");
+	if (Object.prototype.toString.call(obj) === '[object Array]') {
 	    Game.toObject(obj);
 	}
 	else {
 	    if (typeof obj === "Object" && typeof obj.className !== "undefined") {
-		console.log("setting prototype of %s", obj.className);
 		obj.__proto__ = genericObject[obj.className].prototype;
 	    }
 	}

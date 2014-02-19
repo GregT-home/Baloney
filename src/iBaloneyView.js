@@ -1,6 +1,5 @@
 $DEBUG = true;
-$TIMESTAMP = "";
-$THING = "";
+$TIMESTAMP = "";  // tmp global to identify "event echos"
 function iBaloneyView(numPlayers) {
     var tmpNames = ["Mephibosheth", "David", "Joab", "Saul", "Jonathan",
 		    "Nathan", "Abishai", "Asahel", "Ziba", "Abner" ];

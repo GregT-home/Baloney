@@ -30,43 +30,7 @@ Game.prototype.start = function(){
     for (var p = 0, card = deck.giveCard(); (card = deck.giveCard()); p++) {
 	var playerNumber = p % this._players.length;
 	this._players[playerNumber].hand().receive(card);
-if (p == 6) this._currentPlayer._maybeDiscard.receive(deck.giveCard());
     }
-
-    console.log("cand disc hand: ", this._currentPlayer._maybeDiscard.toString());
 
     this._started = true;
-}
-// Move to Object+JSON.js
-Object.prototype.toJSON = function() {
-    this.className = this.constructor.name;
-    return this;
-}
-
-Game.fromJSON = function(string){
-    var obj = JSON.parse(string);
-    obj.__proto__ = window[obj.className].prototype;
-    Game.toObject(obj);
-    return obj;
-}
-
-Game.toObject = function(genericObject){
-    // var prefix = "toObject("
-    // 	+ Object.prototype.toString.call(genericObject)
-    // 	+ "/name "+genericObject.className+"): ";
-
-//investigate JSON.parse revivier function
-
-    for (thing in genericObject) {
-	obj = genericObject[thing];
-	if (Object.prototype.toString.call(obj) === '[object Array]') {
-	    Game.toObject(obj);
-	}
-	else {
-	    if (typeof obj === "Object" && typeof obj.className !== "undefined") {
-		obj.__proto__ = genericObject[obj.className].prototype;
-	    }
-	}
-    }
-    return;
 }

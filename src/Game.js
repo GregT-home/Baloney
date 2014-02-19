@@ -51,9 +51,11 @@ Game.fromJSON = function(string){
 }
 
 Game.toObject = function(genericObject){
-    var prefix = "toObject("
-	+ Object.prototype.toString.call(genericObject)
-	+ "/name "+genericObject.className+"): ";
+    // var prefix = "toObject("
+    // 	+ Object.prototype.toString.call(genericObject)
+    // 	+ "/name "+genericObject.className+"): ";
+
+//investigate JSON.parse revivier function
 
     for (thing in genericObject) {
 	obj = genericObject[thing];

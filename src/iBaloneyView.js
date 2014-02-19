@@ -6,10 +6,10 @@ function iBaloneyView(numPlayers) {
 		    "Nathan", "Abishai", "Asahel", "Ziba", "Abner" ];
     if (numPlayers > 10) {
 	if ($DEBUG)
-	    console.log("Must have fewer than 10 players.\n"
+	    console.log("Must have fewer than 5 players.\n"
 			+ numPlayers + " requested.\n"
-			+ "Reducing the number to 10.");
-	numPlayers = 10;
+			+ "Reducing the number to 5.");
+	numPlayers = 5;
     }
 
     this._game = new Game();
@@ -21,18 +21,18 @@ function iBaloneyView(numPlayers) {
 iBaloneyView.prototype.game  = function() { return this._game; }
 iBaloneyView.prototype.setup = function() {
     this._game.start();
-    this.displayAll();
+    this.refreshAll();
     console.log("iBaloneyView.setup calling ready and setting click handlers.");
     // $(document).ready(this.setClickHand.bind(this));
     // $(document).ready(this.setClickMaybeDiscards.bind(this));
 }
-iBaloneyView.prototype.displayAll = function(){
-    this.displayHand();
-    this.displayMaybeDiscards();
-    this.displayDiscard();
-    this.displayHistory();
-    this.displayInfo();
-    this.displayPlayerStatus();
+iBaloneyView.prototype.refreshAll = function(){
+    this.refreshHand();
+    this.refreshMaybeDiscards();
+    this.refreshDiscard();
+    this.refreshHistory();
+    this.refreshInfo();
+    this.refreshPlayerStatus();
 }
 iBaloneyView.prototype.makeArray = function(thing){
     if (typeof thing != "object")
@@ -46,97 +46,112 @@ iBaloneyView.prototype.update = function(selector, type, text, data) {
     section = $(selector);
     section.empty();
 
-    // if ($DEBUG) {
-    // 	console.log("update '%s(%s)' body with:", selector, type);
-    // 	for (i in lines) console.log("    %s", lines[i]);
-    // }
-
     for (var i = 0; i < lines.length; i++) {
 	newElement = $("<"+type+">");
 	newElement.html(lines[i]);
 	if (typeof data != "undefined") {
 	    Object.keys(data[i]).forEach(function (key) {
-		if ($DEBUG) console.log("(%s) add attr %s: %s", selector, key, data[i][key]);
+		if (false && $DEBUG) console.log("(%s) add attr %s: %s", selector, key, data[i][key]);
  		newElement.attr("data-" + key, data[i][key]);
 	    });
 	}
 	section.append(newElement);
     }
 }
-iBaloneyView.prototype.displayHand = function() {
-    var game = this._game;
+
+iBaloneyView.fileNameFromCard = function (card) {
+    return "images/cards/" + card.suit() + card.rank() + ".png"
+}
+
+iBaloneyView.prototype.refreshHand = function() {
     var imgList = [];
     var dataList = [];
 
-    for (var i = 0; i < game.currentPlayer().hand().numberOfCards(); i++) {
-	var card = game.currentPlayer().hand().cards(i);
-	var data = {"index": i};
-	var imgElement = '<img src="' + iBaloneyView.fileNameFromCard(card) + '">';
-	imgList.push(imgElement);
-	dataList.push(data);
+    for (var i = 0; i < this._game.currentPlayer().hand().numberOfCards(); i++) {
+	var card = this._game.currentPlayer().hand().cards(i);
+	imgList.push('<img src="' + iBaloneyView.fileNameFromCard(card) + '">');
+	dataList.push({ "index": i });
     }
     this.update(".hand", "li", imgList, dataList);
 
     $(document).ready(this.setClickHand.bind(this));
 }
 
-iBaloneyView.fileNameFromCard = function (card) {
-    return "images/cards/" + card.suit() + card.rank() + ".png"
-}
+iBaloneyView.prototype.refreshMaybeDiscards = function(name) {
+    if (typeof name !== "undefined") {
+    	console.log("Updating title with name: ", name);
+	$(".maybe-discards-area h2").text = name;
+    } else {
+    	console.log("Restoring title");
+	$(".maybe-discards-area h2").text = "Discard Pile (click)";
+    }
 
-iBaloneyView.prototype.displayMaybeDiscards = function() {
-    var game = this._game;
-    var discards = game.currentPlayer().maybeDiscard();
     var imgList = [];
     var dataList = [];
+    var maybes = this._game.currentPlayer().maybeDiscard();
 
-console.log("discard # of cards:", discards.numberOfCards());
-    for (var i = 0; i < discards.numberOfCards(); i++) {
-	var card = discards.cards(i);
-	var data = {"index": i};
-	var imgElement = '<img src="' + iBaloneyView.fileNameFromCard(card) + '">';
-	imgList.push(imgElement);
-	dataList.push(data);
+    console.log("discard # of cards:", maybes.numberOfCards());
+
+    for (var i = 0; i < maybes.numberOfCards(); i++) {
+	console.log("in the loop on ", i);
+	var card = maybes.cards(i);
+	imgList.push('<img src="' + iBaloneyView.fileNameFromCard(card) + '">');
+	dataList.push({"index": i});
     }
-    this.update(".maybe-discards li", "li", imgList, dataList);
+    this.update(".maybe-discards", "li", imgList, dataList);
+
     $(document).ready(this.setClickMaybeDiscards.bind(this));
+//    $(document).ready(this.setDblClickMaybeDiscards.bind(this));
 }
 
-iBaloneyView.prototype.displayDiscard = function() {
-    this.update(".action li", "li", '<img src="images/cards/_back.png">');
+iBaloneyView.prototype.refreshDiscard = function() {
+    this.update(".action", "li", '<img src="images/cards/_back.png">');
 }
 
+// iBaloneyView.prototype.setClickMaybeDiscards = function() {
+//     var cardsInDisplay = $(".maybe-discards li");
+
+//     cardsInDisplay.on("click", function(event) {
+// 	target = $(event.currentTarget);
+// 	var index = target.attr("data-index")
+// 	maybes = this._game.currentPlayer().maybeDiscard();
+// 	console.log("selecting card[%s] (%s) to use as discard name.  target is:", index, maybes.cards(index).toString(), target);
+
+// 	if (target.hasClass("selected"))
+// 	    target.removeClass("selected"), console.log("unselected");
+// 	else
+// 	    target.addClass("selected"), console.log("selected");;
+	
+// 	this.refreshHand(); this.refreshMaybeDiscards(maybes.cards(index).toString());
+//     }.bind(this));
+//   }
 iBaloneyView.prototype.setClickMaybeDiscards = function() {
     var cardsInDisplay = $(".maybe-discards li");
 
     cardsInDisplay.on("click", function(event) {
 	if ($TIMESTAMP == event.timeStamp) {
 	    // Why is the handler invoked twice for each click?
-	    console.log("EVENT ECHO SEEN.  skipping out.");
-	    return;
+	    console.log("EVENT ECHO SEEN. Stopping application.");
+	    clickEchoSeenStoppingApp();
 	}
 	$TIMESTAMP = event.timeStamp;
 
 	target = $(event.currentTarget);
-	var index = target.attr("data-index")
-	console.log("index is ", index, " target is ", target);
 	maybes = this._game.currentPlayer().maybeDiscard();
 	my = this._game.currentPlayer().hand();
 
-console.log("moving maybes back to hand. index: ", index, " : ", maybes.toString());
-//	target.children("img").removeClass("selected");
-console.log("number of cards in maybes hand: ", maybes.numberOfCards());
+	console.log("moving these maybes back to hand: ", maybes.toString());
+
 	for (var i = 0; maybes.numberOfCards(); i++) {
 	    console.log("i = ", i);
 	    card = maybes.giveCard().unSelect();
 	    console.log("moving: ", card.toString());
 	    my.receive(card);
 	}
+
 	console.log("hand:", my.toString());
 	console.log("discard:", maybes.toString());
-	this.displayHand(); this.displayMaybeDiscards();
-	$DEBUG = ! $DEBUG;
-	$DEBUG = false;
+	this.refreshHand(); this.refreshMaybeDiscards();
     }.bind(this));
   }
 
@@ -147,8 +162,8 @@ iBaloneyView.prototype.setClickHand = function() {
     cardsInDisplay.on("click", function(event) {
 	if ($TIMESTAMP == event.timeStamp) {
 	    // Why is the handler invoked twice for each click?
-	    console.log("EVENT ECHO SEEN.  skipping out.");
-	    return;
+	    console.log("EVENT ECHO SEEN. Stopping application.");
+	    clickEchoSeenStoppingApp();
 	}
 	$TIMESTAMP = event.timeStamp;
 
@@ -160,10 +175,8 @@ iBaloneyView.prototype.setClickHand = function() {
 	target = $(event.currentTarget);
 	var index = target.attr("data-index")
 	my = this._game.currentPlayer().hand();
-	console.log("Summary: card(%s) is %s of %s", index, my.cards(index).rank(), my.cards(index).suit());
+	console.log("Summary: card(%s) clicked: %s of %s", index, my.cards(index).rank(), my.cards(index).suit());
 	maybes = this._game.currentPlayer().maybeDiscard();
-
-	if ($DEBUG) console.log("Selecting: ", index, " : ", my.cards(index).toString());
 	my.cards(index).select();
 
 //console.log("target = ", target);
@@ -174,7 +187,7 @@ iBaloneyView.prototype.setClickHand = function() {
 	maybes.receive(my.giveSelected());
 	console.log("Maybe Discards: ", maybes.toString());
 	$DEBUG = ! $DEBUG;
-	this.displayHand(); this.displayMaybeDiscards();
+	this.refreshHand(); this.refreshMaybeDiscards();
 	$DEBUG = ! $DEBUG;
     }.bind(this));
 
@@ -182,17 +195,17 @@ iBaloneyView.prototype.setClickHand = function() {
     if ($DEBUG) console.log("...and we are now leaving setClickHand");
 }
 
-iBaloneyView.prototype.displayHistory = function() {
+iBaloneyView.prototype.refreshHistory = function() {
     this.update(".history", "p", this._game.currentPlayer().messages());
 }
-iBaloneyView.prototype.displayInfo = function() {
+iBaloneyView.prototype.refreshInfo = function() {
     var game = this._game;
     this.update(".turn", "li", "It is " + game.currentPlayer().name() + "'s turn.");
     this.update(".discard", "li",
 		[ "Discard has " + game.discard().numberOfCards() + " cards",
 		  "Hand has " + game.currentPlayer().hand().numberOfCards() + " cards" ]);
 };
-iBaloneyView.prototype.displayPlayerStatus = function() {
+iBaloneyView.prototype.refreshPlayerStatus = function() {
     var playerStatus = [];
     for (var i = 0; i < this._game.numberOfPlayers(); i++) {
 	player = this._game.players(i);

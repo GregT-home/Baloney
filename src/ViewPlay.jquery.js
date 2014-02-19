@@ -1,7 +1,7 @@
 
 window.onload = function() {
     var numberOfPlayers;
-    while ((numberOfPlayers = ~~(11 * Math.random())) < 2);
+    while ((numberOfPlayers = ~~(6 * Math.random())) < 2);
     var view = new iBaloneyView(numberOfPlayers);
     view.setup();
 };

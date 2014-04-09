@@ -1,30 +1,3 @@
-describe("iBaloney Game JSON tests", function() {
-    it("#fromJSON should create a game, just like the original, from a JSON string.", function() {
-	game = new Game();
-	game.addPlayer(new Player(1, "One"));
-	game.addPlayer(new Player(2, "Two"));
-
-	var gameJSON = JSON.stringify(game, null, 2);
-	var reconstituted = Game.fromJSON(gameJSON);
-//console.log("JSON for game:", gameJSON);
-//console.log("-------");
-// for (thing in game) {
-//     console.log("thing = %s, typeof = %s", thing, typeof game[thing]);
-// console.log("Object.prototype.toString.call(game[thing]) = %s", Object.prototype.toString.call(game[thing]));
-//     if (Object.prototype.toString.call(game[thing]) === '[object Array]')
-// 	console.log("%s is an array", thing);
-// }
-	console.log("game.player(0) = ", game.players(0));
-	console.log("game.player(1) = ", game.players(1));
-console.log("reconstituted game:", reconstituted);
-	expect(reconstituted.started()).toEqual(game.started());
-	expect(reconstituted.players(reconstituted.currentPlayer())).toBe(game.players(game.currentPlayer()));
-	expect(reconstituted.numberOfPlayers()).toEqual(game.numberOfPlayers());
-	expect(reconstituted.__proto__).toEqual(game.__proto__);
-    });
-
-});
-
 describe("iBaloney Game", function() {
     var game, players;
 
@@ -64,13 +37,26 @@ describe("iBaloney Game", function() {
 
 	it("The current player advances one-by-one in a loop.", function() {
 	    var startingPlayer = game.currentPlayer();
-	    for (var i = 0; i<2; i++){
+	    for (var i = 0; i < (game.numberOfPlayers() - 1); i++){
 		game.advanceToNextPlayer();
 		expect(game.currentPlayer().name()).not.toBe(startingPlayer.name());
 	    }
 	    game.advanceToNextPlayer();
 	    expect(game.currentPlayer()).toBe(startingPlayer);
+	});
 
+	it("The currentDiscardRank moves forward through the ranks.", function() {
+	    var startingRank = game.currentDiscardRank();
+	    var previousRank = startingRank;
+
+	    for (var i = 0; i < Card.RANKS.length - 1; i++){
+		game.advanceToNextPlayer();
+		expect(game.currentDiscardRank()).not.toBe(previousRank);
+		previousRank = game.currentDiscardRank();
+	    }
+
+	    game.advanceToNextPlayer();
+	    expect(game.currentDiscardRank()).toBe(startingRank);
 	});
     });
 });

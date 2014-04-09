@@ -1,3 +1,26 @@
+// Notes 2/20/14
+GameClient.ConnectToStorage() {
+// Optional: load currently saved games.
+
+}
+
+GameClient.SaveGame() {
+// Optiona: list saved game choices...
+gameId = prompt"Save As?");
+
+}
+
+GameClient.LoadGame = function () {
+
+    this.gameId = prompt("which to load?");
+    // save to Apigee
+
+}
+
+
+
+
+
 // Notes 2/17/14
 
 function = notes() {

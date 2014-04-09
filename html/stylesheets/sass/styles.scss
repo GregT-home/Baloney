@@ -13,7 +13,7 @@ $heading-color: MediumBlue;
 $base-font-size: 16px;
 $tablet_size: 800px;
 $phone_size: 450px;
-$compression-ratio: .85;
+$compression-ratio: .75;
 $card-shrink-ratio: .75;
 
 $hand-card-width: 6em;
@@ -26,8 +26,6 @@ $discard-margin-factor : .05;
 
 .selected {
   box-shadow: 0 0 2px 5px LawnGreen;
-// opacity seems to mess with the Z index
-//  opacity: 0.7;  
 }
 
 @mixin clearfix() {
@@ -55,16 +53,17 @@ body { font-family: "Sorts Mill Goudy", Georgia, serif; }
 h1, h2, h3 {
     font-family: Tahoma, Geneva, sans-serif;
     color: $heading-color;
-    margin: 0 .25em 0 .25em
+//    margin: 0 .25em 0 .25em
+    margin: .25em 0 0 .25em;
 }
 
 .game-area {
     margin: .25em
 }
 
-p.history-area {
-    margin: .25em 0 0 .5em
-}
+/* p.history-area { */
+/*     margin: .25em 0 0 .5em */
+/* } */
 
 .play-area {
     background-color: $non-cards-area-color;
@@ -79,24 +78,43 @@ p.history-area {
 	clear: both;
 	@include clearfix;
 
-	h2 { margin: .15em 0 .5em 0 }
-	h3 { margin: .5em 0 .25em 0; }
+	h2 { margin-left: .15em; }
+	h3 { margin-left: .15em; }
     }
 
-    .action-area, .history-area, .hand-area{
-	width: 50%;
+    p { margin: 0 0 .4em 0; }
+
+    .history-area {
+	width: 70%;
+	float: right;
+    }
+    .action-area {
+	width: 30%;
 	float: left;
     }
     .hand-area {
 	width: 100%;
-//	width: 68%;
     }
 }
 
 @media (max-width: $phone_size) {
-    .cards-area {
-	h2 { margin: .05em 0 .05em 0 }
-	h3 { margin: .05em 0 .05em 0 }
+    //    .cards-area, .history-area, .status-area {
+    h2 { margin: .05em 0 .05em 0 }
+    h3 { margin: .05em 0 .05em 0 }
+    //    }
+
+    h1, h2, h3 {
+	margin: 0 0 0 0;
+    }
+
+    p { margin: 0 0 .2em 0; }
+
+    .action-area ul { margin:0; }
+
+    .history-area {
+	min-height: 1.75 * $hand-card-width;
+	height: 1.75 * $hand-card-width;
+	overflow-y: scroll;
     }
 
     .action-area, .history-area, .hand-area {
@@ -121,6 +139,9 @@ p.history-area {
 	}
     }
 
+    .maybe-discards-area {
+	min-height: $hand-card-width;
+    }
     .maybe-discards {
 	list-style-type: none;
 	img { width: $discard-card-width; }
@@ -144,6 +165,7 @@ p.history-area {
 }
 @media (max-width: $phone_size) {
     .maybe-discards {
+	min-height: $hand-card-width * $card-shrink-ratio ;
 	margin: $discard-card-width * $discard-margin-factor; 
 	img { width: $discard-card-width * $card-shrink-ratio; }
 	li { text-indent: -$discard-card-width * $discard-overlap-factor * $card-shrink-ratio; }

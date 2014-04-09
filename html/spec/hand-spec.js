@@ -25,8 +25,23 @@ describe("iBaloney Hand", function() {
 	    expect(hand.numberOfCards()).toEqual(4);
 	});
 
+	it("#giveCard can give a single card", function() {
+	    var card = hand.giveCard();
+	    expect(card).toBeDefined();
+	    hand.receive(card);  // put it back for later tests
+	});
+
 	it("#length returns the size of a hand", function() {
 	    expect(hand.numberOfCards()).toEqual(4);
+	});
+
+	describe("Specified ranks in a hand can be counted.", function() {
+	    it("#countMatchingRank returns the number of a rank  in the hand.", function () {
+		var count = hand.countMatchingRank("3");
+		expect(count).toBe(1);
+		count = hand.countMatchingRank("8");
+		expect(count).toBe(0);
+	    });
 	});
 
 	describe("Specified ranks can be take from a hand.", function() {

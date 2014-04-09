@@ -32,13 +32,13 @@ describe("iBaloney Pile", function() {
 	});
 	
 	it("#length gives the size of a pile", function() {
-	    expect(pile.length()).toEqual(3);
+	    expect(pile.numberOfCards()).toEqual(3);
 	});
 
 	it("#giveAllCards gives all cards in the pile", function() {
 	    var cards = pile.giveAllCards();
 	    expect(cards.length).toEqual(3);
-	    expect(pile.length()).toEqual(0);
+	    expect(pile.numberOfCards()).toEqual(0);
 	    pile.receiveCards(cards);
 	});
     });

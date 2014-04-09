@@ -1,24 +1,10 @@
-describe("JSON tests", function() {
-    it("#fromJSON should create a game, just like the original, from a JSON string.", function() {
-
-	tenClubs = new Card ("10-C");
-	var tenJSON = JSON.stringify(tenClubs);
-	var reconstituted = Card.fromJSON(tenJSON);
-
-	expect(reconstituted.rank()).toEqual(tenClubs.rank());
-	expect(reconstituted.suit()).toEqual(tenClubs.suit());
-	expect(reconstituted.__proto__).toEqual(tenClubs.__proto__);
-    });
-});
-
-describe("iBaloney Card", function() {
-    var aceClubs, aceHearts
-    var tenClubs, tenHearts
+describe("iBaloney Message", function() {
+    var msg = new MessageLibrary();
 
     beforeEach(function() {
-	aceClubs = new Card("A-C")
+	aceClubs = new Card("a-c")
 	aceHearts = new Card("A-H")
-	tenClubs = new Card("10-C")
+	tenClubs = new Card("10-c")
 	tenHearts = new Card("10-H")
     });
 
@@ -27,6 +13,11 @@ describe("iBaloney Card", function() {
 	    expect(aceClubs).toBeDefined();
 	    expect(aceClubs.rank()).toEqual(aceHearts.rank());
 	    expect(aceClubs.suit()).not.toEqual(aceHearts.suit());
+	});
+
+	it("Suits and Ranks always get mapped to upper case.", function() {
+	    expect(aceClubs.rank()).toBe("A");
+	    expect(aceClubs.suit()).toBe("C");
 	});
 
 	it("They have values based on rank only.", function() {
@@ -47,7 +38,7 @@ describe("iBaloney Card", function() {
 	    expect(tenClubs.select().isSelected()).toBeTruthy();
 	});
 
-	it("#select marks a card as selected.", function() {
+	it("#unSelect removes the selection mark.", function() {
 	    expect(tenClubs.unSelect().isSelected()).toBeFalsy();
 	});
 
@@ -55,12 +46,9 @@ describe("iBaloney Card", function() {
 	    expect(tenClubs.toString()).toEqual("10-C");
 	});
 
-	it("#toString prints a string description of a selected card.", function() {
+	it("#toString prints a different string description of a selected card.", function() {
 	    expect(tenClubs.select().toString()).toEqual("10=C");
 	});
 
-	it("#toFileBaseName returns a name with lowercase suit and rank.", function() {
-	    expect(aceHearts.toFileBaseName()).toEqual("ha");
-	});
     });
 }); // end Baloney Card tests

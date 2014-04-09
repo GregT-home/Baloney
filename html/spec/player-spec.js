@@ -1,10 +1,29 @@
 describe("iBaloney Player", function() {
-    describe ("a Player has a number, name and hand.", function() {
+    describe ("a Player has a number, name, type, and hand.", function() {
 	var player;
+	var testNumber = 108;
 	var testName = "Mr. One-Oh-Eight";
 
+ 	var player2;
+ 	var testNumber2 = 109;
+ 	var testName2 = "Mr. One-Oh-Nine";
+
+ 	it("#new: a player can be created as a ROBOT or a HUMAN", function() {
+ 	    player = new Player(testNumber, testName, Player.TYPES.HUMAN);
+ 	    player2 = new Player(108, testName, Player.TYPES.ROBOT);
+
+ 	    expect(player.isHuman()).toBeTruthy();
+ 	    expect(player2.isHuman()).toBeFalsy();
+ 	});
+
+ 	it("#new: a player is human by default.", function() {
+ 	    player = new Player(testNumber, testName);
+ 	    expect(player.isHuman()).toBeTruthy();
+ 	});
+
 	it("#new: a player can be created", function() {
-	    player = new Player(108, testName);
+            player = new Player(108, testName);
+	    expect(player).toBeDefined();
 	});
 
 	it("it holds a number.", function() {
@@ -25,7 +44,7 @@ describe("iBaloney Player", function() {
 
 	it("it holds a possible discard pile.", function() {
 	    expect(player.maybeDiscard()).toBeDefined();
-	    player.maybeDiscard().receive([new Card("A-H"), new Card("6-C")]);
+	    player.maybeDiscard().receiveCards([new Card("A-H"), new Card("6-C")]);
     	    expect(player.maybeDiscard().numberOfCards()).toBe(2);
 	});
 	

@@ -4,4 +4,7 @@ window.onload = function() {
     while ((numberOfPlayers = ~~(6 * Math.random())) < 2);
     var view = new iBaloneyView(numberOfPlayers);
     view.setup();
+    // while (! view.game.isThereAWinner()) {
+    // 	// take_turn
+    // }
 };

@@ -3,20 +3,27 @@
  * with their full prototypes.
  */
 
+/* For reasons unknown, the presence of the toJSON function causes Jquery's click
+   code to fail at line 2020.
+   Commenting out offending method for the time being.
+*/
+
 // Presence of a toJSON method causes JSON#stringify to use the result of that
 // method for stringification.
-Object.prototype.toJSON = function() {
-  this.className = this.constructor.name;
-  return this;
+if (false) {
+  Object.prototype.toJSON = function() {
+    this.className = this.constructor.name;
+    return this;
+  }
 }
 
 // defining a couple of class methods to facilitate conversion from string
 // back into particular objects
 Object.fromJSON = function(string){
-    var obj = JSON.parse(string);
-    obj.__proto__ = window[obj.className].prototype;
-    Object.objectConverter(obj);
-    return obj;
+  var obj = JSON.parse(string);
+  obj.__proto__ = window[obj.className].prototype;
+  Object.objectConverter(obj);
+  return obj;
 }
 
 // The genericObject has no prototypes; using the className (i.e., constructor name),
@@ -33,6 +40,6 @@ Object.objectConverter = function (genericObject) {
         Object.objectConverter(obj);
       }
     }
-   }
-   return;
+  }
+  return;
 }

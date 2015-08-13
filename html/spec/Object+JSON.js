@@ -5,17 +5,17 @@ describe("iBaloney JSON Object extension tests", function() {
     game.addPlayer(new Player(2, "Two"));
 
     var gameJSON = JSON.stringify(game, null, 2); // format errors w/ 2 spaces per level
-    var reconstituted = Object.fromJSON(gameJSON);
-    expect(reconstituted.started()).toEqual(game.started());
-    expect(reconstituted.players(reconstituted.currentPlayer())).toBe(game.players(game.currentPlayer()));
-    expect(reconstituted.numberOfPlayers()).toEqual(game.numberOfPlayers());
-    expect(reconstituted.__proto__).toEqual(game.__proto__);
+    var restoredObj = Object.fromJSON(gameJSON);
+    expect(restoredObj.started()).toEqual(game.started());
+    expect(restoredObj.players(restoredObj.currentPlayer())).toBe(game.players(game.currentPlayer()));
+    expect(restoredObj.numberOfPlayers()).toEqual(game.numberOfPlayers());
+    expect(restoredObj.__proto__).toEqual(game.__proto__);
 
     // second example
     var player = new Player(1, "One");
     var playerJSON = JSON.stringify(player, null, 2);
-    reconstituted = Object.fromJSON(playerJSON);
-    expect(reconstituted.__proto__).toEqual(player.__proto__);
+    restoredObj = Object.fromJSON(playerJSON);
+    expect(restoredObj.__proto__).toEqual(player.__proto__);
   });
 
 });
